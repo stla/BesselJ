@@ -1,12 +1,15 @@
 module Math.BesselJ
   ( BesselResult(..), besselJ )
   where
-import Data.Complex ( imagPart, realPart, Complex(..) )
+import Data.Complex          ( imagPart, realPart, Complex(..) )
 import Numerical.Integration ( integration, IntegralResult(..) )
-import Math.Gamma ( Gamma(gamma) )
-import Foreign.C ( CDouble )
+import Math.Gamma            ( Gamma(gamma) )
+import Foreign.C             ( CDouble )
 
-
+-- | Data type to store the result of a computation of the Bessel J-function.
+-- The fields are @_result@ for the value, @_errors@ for the error estimates 
+-- of the integrals used for the computation, and @_codes@ for the convergence 
+-- codes of these integrals (0 for success).
 data BesselResult = BesselResult {
     _result :: Complex Double
   , _errors :: (Double, Double)
@@ -81,9 +84,9 @@ imCosZcosT t z =
 -- in the result are the error estimates of the integrals. The field @_codes@ 
 -- provides the code indicating success (0) or failure of each integral.
 besselJnu :: Complex Double  -- ^ order, complex number with real part > -0.5
-          -> Complex Double  -- ^ the variable
-          -> Double          -- ^ target relative error accuracy for the integrals
-          -> Int             -- ^ number of subdivisions for the integrals
+          -> Complex Double  -- ^ the variable, a complex number
+          -> Double          -- ^ target relative accuracy for the integrals, e.g. 1e-5
+          -> Int             -- ^ number of subdivisions for the integrals, e.g. 5000
           -> IO BesselResult -- ^ result
 besselJnu nu z err subdiv = do
   let z' = cpxdbl2cpxcdbl z
@@ -115,9 +118,9 @@ asInteger z = floor (realPart z) :: Int
 -- in the result are the error estimates of the integrals. The field @_codes@ 
 -- provides the code indicating success (0) or failure of each integral.
 besselJ :: Complex Double  -- ^ order, integer or complex number with real part > -0.5
-        -> Complex Double  -- ^ the variable
-        -> Double          -- ^ target relative error accuracy for the integrals
-        -> Int             -- ^ number of subdivisions for the integrals
+        -> Complex Double  -- ^ the variable, a complex number
+        -> Double          -- ^ target relative accuracy for the integrals, e.g. 1e-5
+        -> Int             -- ^ number of subdivisions for the integrals, e.g. 5000
         -> IO BesselResult -- ^ result
 besselJ nu z err subdiv
   | isInteger nu = besselJn (asInteger nu) z err subdiv
