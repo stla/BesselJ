@@ -7,4 +7,4 @@ complex number with real part larger than -0.5, or any integer.
 
 ___
 
-![](images/BesselJ-nu3.png)
+![](https://raw.githubusercontent.com/stla/BesselJ/main/images/BesselJ-nu3.png)
