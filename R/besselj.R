@@ -1,9 +1,11 @@
-# Re(t^z)
+# Re(t^z) - with t in (0, pi)
 realPartTpowz <- function(t, z) {
   x <- Re(z)
   y <- Im(z)
   t^x * cos(y * log(t^2))
 } 
+
+# re(sin(t)^(2a+i*2b)) = 
 
 # Im(t^z)
 imagPartTpowz <- function(t, z) {

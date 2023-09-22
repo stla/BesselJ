@@ -1,8 +1,8 @@
 cabal-version:       2.2
 name:                BesselJ
 version:             0.1.0.1
-synopsis:            Bessel J-function
-description:         Computation of the Bessel J-function of a complex variable. 
+synopsis:            Bessel J-function, Anger J-function, Weber E-function, and Anger-Weber function.
+description:         Computation of Bessel J-function, Anger J-function, Weber E-function, Anger-Weber function, of a complex variable. 
 homepage:            https://github.com/stla/BesselJ#readme
 license:             BSD-3-Clause
 license-file:        LICENSE
@@ -19,6 +19,7 @@ library
   exposed-modules:     Math.BesselJ
                      , Math.AngerJ
                      , Math.WeberE
+                     , Math.AngerWeber
   build-depends:       base >= 4.7 && < 5
                      , gamma >= 0.10.0.0
                      , numerical-integration >= 0.1.2.3
