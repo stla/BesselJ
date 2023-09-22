@@ -1,10 +1,9 @@
 module Main where
-import           Approx               ( assertAreClose )
-import           Data.Complex         ( Complex(..) )
-import           Math.BesselJ
--- import           Math.Gamma           ( gamma )
-import           Test.Tasty           ( defaultMain, testGroup )
-import           Test.Tasty.HUnit     ( testCase )
+import           Approx           ( assertAreClose )
+import           Data.Complex     ( Complex(..), conjugate )
+import           Test.Tasty       ( defaultMain, testGroup )
+import           Test.Tasty.HUnit ( testCase )
+import           Math.BesselJ     ( BesselResult(_result), besselJ )
 
 i_ :: Complex Double
 i_ = 0.0 :+ 1.0
@@ -42,6 +41,41 @@ main = defaultMain $
       let z = 3 :+ 4
           s = sqrt(2 / pi / z) * sin z
       x <- _result <$> besselJ 0.5 z 1e-5 5000
-      assertAreClose "" 1e-9 x s
+      assertAreClose "" 1e-9 x s,
+
+    testCase "remove square root" $ do
+      let z = 2 :+ 1
+          nu = (-0.3) :+ 1
+      x <- _result <$> besselJ nu (sqrt (z*z)) 1e-5 5000
+      y <- _result <$> besselJ nu z 1e-5 5000
+      assertAreClose "" 1e-6 x (z**(-nu) * (z*z)**(nu/2) * y),
+
+    testCase "remove square root --- integer nu" $ do
+      let z = 2 :+ 1
+          nu = -4
+      x <- _result <$> besselJ nu (sqrt (z*z)) 1e-5 5000
+      y <- _result <$> besselJ nu z 1e-5 5000
+      assertAreClose "" 1e-6 x (z**(-nu) * (z*z)**(nu/2) * y),
+
+    testCase "remove minus sign" $ do
+      let z = 2 :+ 1
+          nu = (-0.3) :+ 1
+      x <- _result <$> besselJ nu (-z) 1e-5 5000
+      y <- _result <$> besselJ nu z 1e-5 5000
+      assertAreClose "" 1e-6 x ((-z)**nu * z**(-nu) * y), 
+
+    testCase "conjugate" $ do
+      let z = 2 :+ 5
+          nu = 0.3 :+ (-1)
+      x <- _result <$> besselJ (conjugate nu) (conjugate z) 1e-5 5000
+      y <- _result <$> besselJ nu z 1e-5 5000
+      assertAreClose "" 1e-6 x (conjugate y), 
+
+    testCase "conjugate --- integer nu" $ do
+      let z = 2 :+ 5
+          nu = 7
+      x <- _result <$> besselJ nu (conjugate z) 1e-5 5000
+      y <- _result <$> besselJ nu z 1e-5 5000
+      assertAreClose "" 1e-6 x (conjugate y)
 
   ]

@@ -1,6 +1,6 @@
 cabal-version:       2.2
 name:                BesselJ
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            Bessel J-function
 description:         Computation of the Bessel J-function of a complex variable. 
 homepage:            https://github.com/stla/BesselJ#readme
