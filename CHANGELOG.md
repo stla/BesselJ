@@ -9,3 +9,9 @@ First release.
 ## 0.1.0.1 - 2023-09-22
 
 More unit tests.
+
+
+## 0.2.0.0 - 2023-09-DD
+
+Added implementations of Anger J-function, Weber E-function, and Anger-Weber function.
+

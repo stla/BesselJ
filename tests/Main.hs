@@ -6,6 +6,7 @@ import           Test.Tasty.HUnit ( testCase )
 import           Math.BesselJ     ( BesselResult(..), besselJ )
 import           Math.AngerJ      ( AngerResult(..), angerJ )
 import           Math.WeberE      ( WeberResult(..), weberE )
+import           Math.AngerWeber  ( AngerWeberResult(..), angerWeber )
 
 
 aResult :: AngerResult -> Complex Double
@@ -17,6 +18,8 @@ bResult (BesselResult r _ _) = r
 wResult :: WeberResult -> Complex Double
 wResult (WeberResult r  _  _) = r
 
+awResult :: AngerWeberResult -> Complex Double
+awResult (AngerWeberResult r  _  _) = r
 
 main :: IO ()
 main = defaultMain $
@@ -163,6 +166,17 @@ main = defaultMain $
       a1 <- aResult <$> angerJ nu z 1e-5 5000
       a2 <- aResult <$> angerJ (-nu) z 1e-5 5000
       w <- wResult <$> weberE nu z 1e-5 5000
-      assertAreClose "" 1e-7 (sin(pi*nu)*w) (a2 - cos(pi*nu)*a1)
+      assertAreClose "" 1e-7 (sin(pi*nu)*w) (a2 - cos(pi*nu)*a1),
+    
+
+    -- Anger-Weber --------
+
+    testCase "A value of Anger-Weber" $ do
+      let z = 2.5 :+ 0.5
+          nu = 1.0 / 3.0
+          wolfram = 0.102015 :+ (-0.0162118)
+      aw <- awResult <$> angerWeber nu z 1e-6 5000
+      assertAreClose "" 1e-5 aw wolfram
+
 
   ]
