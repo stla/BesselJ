@@ -144,6 +144,25 @@ main = defaultMain $
       y <- wResult <$> weberE nu z 1e-5 5000
       let x = x1 + x2 
           y' = 2*nu/z * y - 2*(1-cos(pi*nu))/(pi*z)
-      assertAreClose "" 1e-7 x y'
+      assertAreClose "" 1e-7 x y',
+    
+
+    -- Relations between Anger and Weber --------
+
+    testCase "Relation 1 between Anger and Weber" $ do
+      let z = (-7) :+ 6
+          nu = (-3.3) :+ 9
+      w1 <- wResult <$> weberE nu z 1e-5 5000
+      w2 <- wResult <$> weberE (-nu) z 1e-5 5000
+      a <- aResult <$> angerJ nu z 1e-5 5000
+      assertAreClose "" 1e-7 (sin(pi*nu)*a) (cos(pi*nu)*w1 - w2),
+
+    testCase "Relation 2 between Anger and Weber" $ do
+      let z = (-7) :+ 6
+          nu = (-3.3) :+ 9
+      a1 <- aResult <$> angerJ nu z 1e-5 5000
+      a2 <- aResult <$> angerJ (-nu) z 1e-5 5000
+      w <- wResult <$> weberE nu z 1e-5 5000
+      assertAreClose "" 1e-7 (sin(pi*nu)*w) (a2 - cos(pi*nu)*a1)
 
   ]
