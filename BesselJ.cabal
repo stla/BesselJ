@@ -18,6 +18,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     Math.BesselJ
                      , Math.AngerJ
+                     , Math.WeberE
   build-depends:       base >= 4.7 && < 5
                      , gamma >= 0.10.0.0
                      , numerical-integration >= 0.1.2.3

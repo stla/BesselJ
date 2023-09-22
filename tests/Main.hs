@@ -93,6 +93,13 @@ main = defaultMain $
       x <- aResult <$> angerJ nu 0 1e-5 5000
       assertAreClose "" 1e-3 x y,
 
+    testCase "Anger is Bessel when nu is integer" $ do
+      let z = 2 :+ 6
+          nu = 10
+      x <- aResult <$> angerJ nu z 1e-5 5000
+      y <- bResult <$> besselJ nu z 1e-5 5000
+      assertAreClose "" 1e-6 x y,
+
     testCase "Anger - remove minus sign" $ do
       let z = 2 :+ 1
           nu = (-0.3) :+ 1
