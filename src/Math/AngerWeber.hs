@@ -5,6 +5,7 @@ import Data.Complex          ( realPart, imagPart, Complex(..) )
 import Math.BesselJ          ( besselJ, BesselResult(..) )
 import Math.AngerJ           ( angerJ, AngerResult(..))
 
+
 -- | Data type to store the result of a computation of the Anger-Weber function.
 -- It is based on a computation of the Bessel J-function and a computation of 
 -- the Anger J-function. 
@@ -17,20 +18,20 @@ data AngerWeberResult = AngerWeberResult {
   , _angerResult  :: AngerResult
 } deriving Show
 
+
 isInteger :: Complex Double -> Bool
 isInteger z = y == 0 && x == fromIntegral (floor x :: Int)
   where
     x = realPart z
     y = imagPart z
 
--- isEven :: Complex Double -> Bool
--- isEven z = isInteger (z/2)
 
 aResult :: AngerResult -> Complex Double
 aResult (AngerResult r  _  _) = r
 
 bResult :: BesselResult -> Complex Double
 bResult (BesselResult r _ _) = r
+
 
 -- | Anger-Weber function. 
 angerWeber :: Complex Double       -- ^ order, non-integer complex number with real part larger than -0.5
@@ -48,5 +49,3 @@ angerWeber nu z err subdiv
           aresult = aResult anger 
           result = (aresult - bresult) / sin(pi*nu)
       return (AngerWeberResult result bessel anger)
-
-

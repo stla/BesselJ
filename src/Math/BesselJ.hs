@@ -6,6 +6,7 @@ import Numerical.Integration ( integration, IntegralResult(..) )
 import Math.Gamma            ( Gamma(gamma) )
 import Foreign.C             ( CDouble )
 
+
 -- | Data type to store the result of a computation of the Bessel J-function.
 -- The fields are @_result@ for the value, @_errors@ for the error estimates 
 -- of the integrals used for the computation, and @_codes@ for the convergence 
@@ -16,11 +17,14 @@ data BesselResult = BesselResult {
   , _codes  :: (Int, Int)
 } deriving Show
 
+
 cpxdbl2cpxcdbl :: Complex Double -> Complex CDouble
 cpxdbl2cpxcdbl z = realToFrac (realPart z) :+ realToFrac (imagPart z)
 
+
 dbl2cdbl :: Double -> CDouble
 dbl2cdbl = realToFrac
+
 
 -- | Bessel-J function. It is computed with two integrals. The field @_errors@ 
 -- in the result are the error estimates of the integrals. The field @_codes@ 
@@ -81,8 +85,8 @@ imCosZcosT t z =
 
 
 -- | Bessel-J function. It is computed with two integrals. The field @_errors@ 
--- in the result are the error estimates of the integrals. The field @_codes@ 
--- provides the code indicating success (0) or failure of each integral.
+-- in the result provides the error estimates of the integrals. The field 
+-- @_codes@ provides the codes indicating success (0) or failure of each integral.
 besselJnu :: Complex Double  -- ^ order, complex number with real part > -0.5
           -> Complex Double  -- ^ the variable, a complex number
           -> Double          -- ^ target relative accuracy for the integrals, e.g. 1e-5
@@ -115,8 +119,8 @@ asInteger :: Complex Double -> Int
 asInteger z = floor (realPart z) :: Int
 
 -- | Bessel-J function. It is computed with two integrals. The field @_errors@ 
--- in the result are the error estimates of the integrals. The field @_codes@ 
--- provides the code indicating success (0) or failure of each integral.
+-- in the result provides the error estimates of the integrals. The field 
+-- @_codes@ provides the codes indicating success (0) or failure of each integral.
 besselJ :: Complex Double  -- ^ order, integer or complex number with real part > -0.5
         -> Complex Double  -- ^ the variable, a complex number
         -> Double          -- ^ target relative accuracy for the integrals, e.g. 1e-5
