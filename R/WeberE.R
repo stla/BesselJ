@@ -8,4 +8,4 @@ giac$execute(x)
 # cosh(b*t-y*sin(t))*sin(a*t-x*sin(t))
 
 giac$execute(y)
-# -sinh(b*t-y*sin(t))*sin(a*t-x*sin(t))
+# sinh(b*t-y*sin(t))*cos(a*t-x*sin(t))

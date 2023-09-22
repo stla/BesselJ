@@ -35,7 +35,7 @@ weberE nu z err subdiv = do
       a' = realPart nu'
       b' = imagPart nu'
       reintegrand t = cosh(b' * t - y' * sin t) * sin(a' * t - x' * sin t)
-      imintegrand t = -sinh(b' * t - y' * sin t) * cos(a' * t - x' * sin t)
+      imintegrand t = sinh(b' * t - y' * sin t) * cos(a' * t - x' * sin t)
   re <- integration reintegrand 0 pi 0.0 err subdiv
   im <- integration imintegrand 0 pi 0.0 err subdiv
   return WeberResult {
