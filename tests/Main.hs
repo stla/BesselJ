@@ -87,11 +87,27 @@ main = defaultMain $
 
     -- Anger --------
 
+    testCase "Anger at z = 0" $ do
+      let nu = (-2.3) :+ 1
+          y = sin(pi*nu) / (pi*nu)
+      x <- aResult <$> angerJ nu 0 1e-5 5000
+      assertAreClose "" 1e-3 x y,
+
     testCase "Anger - remove minus sign" $ do
       let z = 2 :+ 1
           nu = (-0.3) :+ 1
       x <- aResult <$> angerJ nu (-z) 1e-5 5000
       y <- aResult <$> angerJ (-nu) z 1e-5 5000
-      assertAreClose "" 1e-3 x y
+      assertAreClose "" 1e-6 x y,
+
+    testCase "Anger - recurrence relation" $ do
+      let z = (-2) :+ 1
+          nu = (-0.3) :+ 1
+      x1 <- aResult <$> angerJ (nu-1) z 1e-5 5000
+      x2 <- aResult <$> angerJ (nu+1) z 1e-5 5000
+      y <- aResult <$> angerJ nu z 1e-5 5000
+      let x = x1 + x2 
+          y' = 2*nu/z * y - 2*sin(pi*nu)/(pi*z)
+      assertAreClose "" 1e-6 x y'
 
   ]
