@@ -13,3 +13,11 @@ ___
 ![](https://raw.githubusercontent.com/stla/BesselJ/main/images/BesselJ-nu3.png)
 
 ![](https://raw.githubusercontent.com/stla/BesselJ/main/images/BesselJ_nu3-3i.png)
+
+![](https://raw.githubusercontent.com/stla/BesselJ/main/images/AngerJ_nu3.png)
+
+![](https://raw.githubusercontent.com/stla/BesselJ/main/images/WeberE_nu3.png)
+
+![](https://raw.githubusercontent.com/stla/BesselJ/main/images/AngerWeber.png)
+
+![](https://raw.githubusercontent.com/stla/BesselJ/main/images/AngerWeber_sobel.png)

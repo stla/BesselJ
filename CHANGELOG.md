@@ -15,3 +15,7 @@ More unit tests.
 
 Added implementations of Anger J-function, Weber E-function, and Anger-Weber function.
 
+
+## 0.2.0.1 - 2023-09-22
+
+Added images in README.
